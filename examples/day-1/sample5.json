@@ -1,0 +1,84 @@
+{
+    "students": [
+        {
+            "id": 1,
+            "name": "Ali",
+            "surname": "Yılmaz",
+            "courses": [
+                1,
+                2
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Ayşe",
+            "surname": "Kara",
+            "courses": [
+                1,
+                3
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Hakan",
+            "surname": "Turan",
+            "courses": [
+                2,
+                3
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Hakan",
+            "surname": "Turan",
+            "courses": [
+                "yazılım",
+                "muhasebe"
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Hakan",
+            "surname": "Turan",
+            "courses": [
+                {
+                    "id": 1,
+                    "name": "yazılım"
+                }
+            ]
+        }
+    ],
+    "courses": [
+        {
+            "id": 1,
+            "name": "yazılım",
+            "students": [
+                1,
+                2
+            ]
+        },
+        {
+            "id": 2,
+            "name": "muhasebe",
+            "students": [
+                1,
+                3
+            ]
+        },
+        {
+            "id": 3,
+            "name": "ui/ux",
+            "students": [
+                2,
+                3
+            ]
+        }
+    ],
+    "courses_students": [
+        {
+            "_id": 1,
+            "course_id": 1,
+            "student_id": 1
+        }
+    ]
+}
