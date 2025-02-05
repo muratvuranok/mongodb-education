@@ -201,14 +201,14 @@ NOT:  movies (main collection) içerisindeki _id alanı, db.'dan sonra verdiğin
     {
         "$group": {
             "_id": null,
-            "averageDurationTime": { "$avg": "$runtime" },
+            "avarageDurationTime": { "$avg": "$runtime" },
             "movies": { "$push": "$$ROOT" } 
         }
     },   
     {
        "$project": {
             "_id": 0,
-            "averageDurationTime": 1,
+            "avarageDurationTime": 1,
             "movies": {
                 "title": 1,
                 "genres": 1,
@@ -223,3 +223,236 @@ NOT:  movies (main collection) içerisindeki _id alanı, db.'dan sonra verdiğin
  ])
 
   // $$ROOT -> o anki belgenin tamamını ifade eder.
+
+
+
+
+  select * from products groupby x
+
+  select 
+    CategoryName,
+    Description,
+  P.CategoryID,  -> key
+  Count(UnitPrice) as Adet
+  
+  from Products p join Categories c
+  on c.CategoryID = p.CategoryID
+
+  GroupBy P.CategoryID
+
+
+
+
+
+    türüne göre filmlerin ortalama süresini hesaplama 
+
+
+db.movies.aggregate([
+    {
+        "$unwind": { "path": "$genres" }
+    },
+    {
+        "$group": {
+            "_id": "$genres",
+            "avgTime": { "$avg": "$runtime" }
+        }
+    },
+    {
+        "$sort": { "avgTime": -1 }
+    }
+])
+
+action türünde yer alan filmerin en uzun süreye sahip olan filmi bulunuz (maxTime -> max)
+
+db.movies.aggregate(
+[
+    {
+        "$match": {
+            "genres": "Action"
+        }
+    },
+    {
+        "$group": {
+            "_id": null,
+            "maxTime": {
+                "$max": "$runtime"
+            }
+        }
+    },
+    {
+        "$project":{
+            "_id": 0,
+            "maxTime": 1
+        }
+    }
+])
+
+
+filmlerin süresini saat ve dakika olarak gösterme
+
+
+
+db.movies.aggregate([
+    {
+       "$addFields": {
+            "hours": {
+                "$floor": {
+                    "$divide": ["$runtime", 60]
+                }
+            },
+            "minutes": {
+                "$mod": ["$runtime", 60]
+            }
+       }
+    },
+   {
+        "$project": {
+            "_id": 0,
+            "title": 1,
+            "runtime": 1,
+            "hours": 1,
+            "minutes": 1
+        }
+   }
+]) 
+
+// Mongodb Nolock nasıl kullanılır :)
+1) $snapshot -> tutarsız okumaları önleme
+
+db.movies.find({ year: {$gte:2014}}).hint({$natural: 1})
+
+ veriyi değiştirme sırasına göre okur, NOLOCK kilitlemeyi kaldırmaz
+
+
+db.getMongo().startSession(
+
+    {
+        readConcern: {
+            level : "majority"
+        }
+    }
+)
+
+db.movies.find({ year: {$gte:2014}})
+
+
+
+filmlerin süre kategorisine göre sınıflandırma
+
+
+sure > 120 ? "long" : "short"
+
+db.movies.aggregate([
+    {
+        "$addFields": {
+            "durationCategory": {
+                "$cond" : {
+                    "if": { $gte: ["$runtime", 120 ]},
+                    "then": "long",
+                    "else": "short"
+                }
+            }
+        }
+    },
+    {
+        "$sort":{
+            "durationCategory": 1
+        }
+    },
+    {
+        "$project":{
+            "_id":0, 
+            "runtime":1,
+            "durationCategory":1
+        }
+    }
+])
+
+
+
+
+
+db.movies.aggregate([ 
+    {
+        "$project":{
+            "_id": 0,  
+            "runtime": 1,
+            "durationCategory": { 
+                "$cond" : {
+                    "if": { $gte: ["$runtime", 120 ]},
+                    "then": "long",
+                    "else": "short"
+                }             
+            }
+        }
+    },
+    { "$sort":{ "durationCategory": 1 } },
+    { "$skip": 5 },
+    { "$limit": 5 }
+])
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+db.categories.insertMany([
+    {   "_id": 1,  "name": "Manav",             "parentId": null  },
+    {   "_id": 2,  "name": "Sebzeler",          "parentId": 1  },
+    {   "_id": 3,  "name": "Yeşil Sebezeler",   "parentId": 2  },
+    {   "_id": 4,  "name": "Kırmızı Sebzeler",  "parentId": 2  },
+    {   "_id": 5,  "name": "Meyveler",          "parentId": 1  },
+    {   "_id": 6,  "name": "Sarı Meyveler",     "parentId": 5  },
+    {   "_id": 7,  "name": "Kırmızı Meyveler",  "parentId": 5  },
+    {   "_id": 8,  "name": "Şarkuteri",         "parentId": null  },
+    {   "_id": 9,  "name": "Kırmızı Et",        "parentId": 8  },
+    {   "_id": 10, "name": "Beyaz Et",          "parentId": 8  },
+    {   "_id": 11, "name": "Hindi Et",          "parentId": 8  } 
+])
+
+
+db.categories.aggregate([ 
+    {
+        $graphLookup: {
+            from: "categories",
+            startWith: "$_id",
+            connectFromField: "_id",
+            connectToField: "parentId",
+            as: "hierarchy"
+        }
+    },
+    { 
+        $project: {
+            _id: 1,
+            name: 1,
+            parentId: 1,
+            hierarchy: {
+                $map: {
+                    input: "$hierarchy",
+                    as: "h",
+                    in: "$$h.name"
+                }
+            }
+        }
+    } 
+])

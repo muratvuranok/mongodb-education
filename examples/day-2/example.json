@@ -1,0 +1,13 @@
+[
+    {   "_id": 1,  "name": "Manav",             "parentId": null  },
+    {   "_id": 2,  "name": "Sebzeler",          "parentId": 1  },
+    {   "_id": 3,  "name": "Yeşil Sebezeler",   "parentId": 2  },
+    {   "_id": 4,  "name": "Kırmızı Sebzeler",  "parentId": 2  },
+    {   "_id": 5,  "name": "Meyveler",          "parentId": 1  },
+    {   "_id": 6,  "name": "Sarı Meyveler",     "parentId": 5  },
+    {   "_id": 7,  "name": "Kırmızı Meyveler",  "parentId": 5  },
+    {   "_id": 8,  "name": "Şarkuteri",         "parentId": null  },
+    {   "_id": 9,  "name": "Kırmızı Et",        "parentId": 8  },
+    {   "_id": 10, "name": "Beyaz Et",          "parentId": 8  },
+    {   "_id": 11, "name": "Hindi Et",          "parentId": 8  } 
+]
