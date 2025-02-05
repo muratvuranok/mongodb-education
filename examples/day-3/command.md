@@ -205,3 +205,9 @@ db.users.createIndex({ name: 1, email: -1}, { name: 'name_email_index' })
         email: 1
     }
   ).hint('name_email_index')
+
+
+
+
+
+  
