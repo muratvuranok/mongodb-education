@@ -1,0 +1,37 @@
+@MongoDbExample_HostAddress = http://localhost:5185
+
+
+### Get Category By Id
+GET {{MongoDbExample_HostAddress}}/api/categories/67a9a8b1d2687d1fca518b75
+Accept: application/json
+
+
+### Get All Categories
+GET {{MongoDbExample_HostAddress}}/api/categories
+Accept: application/json
+
+### Get All Categories with Products
+GET {{MongoDbExample_HostAddress}}/api/categories/products
+Accept: application/json
+
+
+### Create Category
+POST {{MongoDbExample_HostAddress}}/api/categories
+Content-Type: application/json
+
+{
+    "Name": "confection",
+    "Description": "Soft drinks, coffes, teas, beers"
+}
+ 
+
+### Create Product
+POST {{MongoDbExample_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+    "Name": "test product 105",
+    "price": 10,
+    "unitsInStock": 100,
+    "categoryId": "67a9b3a3b24d6b5c9c1f5f73"
+}
