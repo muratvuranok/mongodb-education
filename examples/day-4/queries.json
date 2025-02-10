@@ -1,0 +1,148 @@
+{
+    "one-to-one": {
+        "users": [
+            {
+                "name": "murat vuranok",
+                "email": "isim@soyisim.com",
+                "profile": {
+                    "adderss": "istanbul",
+                    "phone": "1234567890"
+                }
+            },
+            {
+                "name": "ahmet vuranok",
+                "email": "isim@soyisim.com",
+                "profile": {
+                    "adderss": "istanbul",
+                    "phone": "1234567890"
+                }
+            },
+            {
+                "name": "mehmet vuranok",
+                "email": "isim@soyisim.com",
+                "profile": {
+                    "adderss": "istanbul",
+                    "phone": "1234567890"
+                }
+            }
+        ],
+        "kullanicilar": [
+            {
+                "_id": 1,
+                "name": "murat vuranok",
+                "email": "isim@soyisim.com"
+            },
+            {
+                "_id": 2,
+                "name": "ahmet vuranok",
+                "email": "isim@soyisim.com"
+            }
+        ],
+        "profiles": [
+            {
+                "_id": 1,
+                "user_id": 1,
+                "adderss": "istanbul",
+                "phone": "1234567890"
+            },
+            {
+                "_id": 2,
+                "user_id": 2,
+                "adderss": "istanbul",
+                "phone": "1234567890"
+            }
+        ]
+    },
+    "one-to-many": {
+        "customers": [
+            {
+                "_id": 1,
+                "name": "murat vuranok",
+                "email": "isim@soyisim.com",
+                "orders": [
+                    {
+                        "order_date": "2020-01-01",
+                        "total": 100
+                    },
+                    {
+                        "order_date": "2020-01-02",
+                        "total": 200
+                    }
+                ]
+            }
+        ],
+        "musteriler": [
+            {
+                "_id": 1,
+                "name": "murat vuranok",
+                "email": "isim@soyisim.com"
+            }
+        ],
+        "siparisler": [
+            {
+                "_id": 1,
+                "musteri_id": 1,
+                "order_date": "2020-01-02",
+                "total": 200
+            },
+            {
+                "_id": 2,
+                "musteri_id": 1,
+                "order_date": "2020-01-02",
+                "total": 200
+            },
+            {
+                "_id": 2,
+                "musteri_id": 1,
+                "order_date": "2020-01-02",
+                "total": 200
+            }
+        ]
+    },
+    "many-to-many": {
+        "students": [
+            {
+                "_id": 1,
+                "name": "murat vuranok",
+                "email": "isim@soyisim.com",
+                "courses": [
+                    {
+                        "name": "math"
+                    },
+                    {
+                        "name": "science"
+                    }
+                ]
+            }
+        ],
+        "ogrenciler": [
+            {
+                "_id": 1,
+                "name": "murat vuranok",
+                "email": "isim@soyisim.com"
+            }
+        ],
+        "dersler": [
+            {
+                "_id": 1,
+                "name": "math"
+            },
+            {
+                "_id": 2,
+                "name": "science"
+            }
+        ],
+        "student_courses": [
+            {
+                "_id": 1,
+                "student_id": 1,
+                "course_id": 1
+            },
+            {
+                "_id": 2,
+                "student_id": 1,
+                "course_id": 2
+            }
+        ]
+    }
+}

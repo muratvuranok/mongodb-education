@@ -1,0 +1,250 @@
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fa2"
+    },
+    "ProductID": 12,
+    "ProductName": "Queso Manchego La Pastora",
+    "CategoryID": 4,
+    "UnitPrice": 38.0,
+    "UnitsInStock": 86
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fa4"
+    },
+    "ProductID": 17,
+    "ProductName": "Alice Mutton",
+    "CategoryID": 6,
+    "UnitPrice": 39.0,
+    "UnitsInStock": 0
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fa7"
+    },
+    "ProductID": 20,
+    "ProductName": "Sir Rodney's Marmalade",
+    "CategoryID": 3,
+    "UnitPrice": 81.0,
+    "UnitsInStock": 40
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fa8"
+    },
+    "ProductID": 9,
+    "ProductName": "Mishi Kobe Niku",
+    "CategoryID": 6,
+    "UnitPrice": 97.0,
+    "UnitsInStock": 29
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875faa"
+    },
+    "ProductID": 18,
+    "ProductName": "Carnarvon Tigers",
+    "CategoryID": 8,
+    "UnitPrice": 62.5,
+    "UnitsInStock": 42
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fad"
+    },
+    "ProductID": 26,
+    "ProductName": "Gumbär Gummibärchen",
+    "CategoryID": 3,
+    "UnitPrice": 31.23,
+    "UnitsInStock": 15
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fae"
+    },
+    "ProductID": 27,
+    "ProductName": "Schoggi Schokolade",
+    "CategoryID": 3,
+    "UnitPrice": 43.9,
+    "UnitsInStock": 49
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fb1"
+    },
+    "ProductID": 28,
+    "ProductName": "Rössle Sauerkraut",
+    "CategoryID": 7,
+    "UnitPrice": 45.6,
+    "UnitsInStock": 26
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fb4"
+    },
+    "ProductID": 29,
+    "ProductName": "Thüringer Rostbratwurst",
+    "CategoryID": 6,
+    "UnitPrice": 123.79,
+    "UnitsInStock": 0
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fb5"
+    },
+    "ProductID": 32,
+    "ProductName": "Mascarpone Fabioli",
+    "CategoryID": 4,
+    "UnitPrice": 32.0,
+    "UnitsInStock": 9
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fb7"
+    },
+    "ProductID": 8,
+    "ProductName": "Northwoods Cranberry Sauce",
+    "CategoryID": 2,
+    "UnitPrice": 40.0,
+    "UnitsInStock": 6
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fb9"
+    },
+    "ProductID": 7,
+    "ProductName": "Uncle Bob's Organic Dried Pears",
+    "CategoryID": 7,
+    "UnitPrice": 30.0,
+    "UnitsInStock": 15
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fbc"
+    },
+    "ProductID": 10,
+    "ProductName": "Ikura",
+    "CategoryID": 8,
+    "UnitPrice": 31.0,
+    "UnitsInStock": 31
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fc6"
+    },
+    "ProductID": 38,
+    "ProductName": "Côte de Blaye",
+    "CategoryID": 1,
+    "UnitPrice": 263.5,
+    "UnitsInStock": 17
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fcb"
+    },
+    "ProductID": 43,
+    "ProductName": "Ipoh Coffee",
+    "CategoryID": 1,
+    "UnitPrice": 46.0,
+    "UnitsInStock": 17
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fd3"
+    },
+    "ProductID": 53,
+    "ProductName": "Perth Pasties",
+    "CategoryID": 6,
+    "UnitPrice": 32.8,
+    "UnitsInStock": 0
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fd5"
+    },
+    "ProductID": 51,
+    "ProductName": "Manjimup Dried Apples",
+    "CategoryID": 7,
+    "UnitPrice": 53.0,
+    "UnitsInStock": 20
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fd8"
+    },
+    "ProductID": 59,
+    "ProductName": "Raclette Courdavault",
+    "CategoryID": 4,
+    "UnitPrice": 55.0,
+    "UnitsInStock": 79
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fd9"
+    },
+    "ProductID": 56,
+    "ProductName": "Gnocchi di nonna Alice",
+    "CategoryID": 5,
+    "UnitPrice": 38.0,
+    "UnitsInStock": 21
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fdb"
+    },
+    "ProductID": 60,
+    "ProductName": "Camembert Pierrot",
+    "CategoryID": 4,
+    "UnitPrice": 34.0,
+    "UnitsInStock": 19
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fdc"
+    },
+    "ProductID": 62,
+    "ProductName": "Tarte au sucre",
+    "CategoryID": 3,
+    "UnitPrice": 49.3,
+    "UnitsInStock": 17
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fdd"
+    },
+    "ProductID": 64,
+    "ProductName": "Wimmers gute Semmelknödel",
+    "CategoryID": 5,
+    "UnitPrice": 33.25,
+    "UnitsInStock": 22
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fdf"
+    },
+    "ProductID": 63,
+    "ProductName": "Vegie-spread",
+    "CategoryID": 2,
+    "UnitPrice": 43.9,
+    "UnitsInStock": 24
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fe3"
+    },
+    "ProductID": 69,
+    "ProductName": "Gudbrandsdalsost",
+    "CategoryID": 4,
+    "UnitPrice": 36.0,
+    "UnitsInStock": 26
+}
+{
+    "_id": {
+        "$oid": "67a46de7ccbcba55d5875fe9"
+    },
+    "ProductID": 72,
+    "ProductName": "Mozzarella di Giovanni",
+    "CategoryID": 4,
+    "UnitPrice": 34.8,
+    "UnitsInStock": 14
+}

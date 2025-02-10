@@ -1,0 +1,10 @@
+- schema and best practice    +
+- file import ( var olan json datayı aktarma , sql'de yer alan bir datayı import etme senaryosu )  +
+- security
+- sharding
+- transaction
+- multitenant
+- gridfs
+- changeStream
+- performans
+- entegrasyon ( .net, python )
