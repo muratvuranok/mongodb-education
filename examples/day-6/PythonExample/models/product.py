@@ -2,34 +2,59 @@ from bson.objectid import ObjectId
 
 
 class Product:
-    def __init__(self, name: str, price: float, unitsInStock: int, categoryId: str):
-        self.Name = name
-        self.Price = price
-        self.UnitsInStock = unitsInStock
-        self.CategoryId = ObjectId(categoryId) if categoryId else None
-        
-        # db.Products.insertOne({Name: "Chai", Price: 10, UnitsInStock: 100, CategoryId: '67aaf9be3961c0aac69240f5'})
+    """
+    MongoDB için Ürün (Product) modeli.
+    """
 
-    def __str__(self):  # ToString
-        return f"{self.Name} {self.Price} {self.UnitsInStock} {self.CategoryId}"
+    def __init__(
+        self,
+        name: str,
+        price: float,
+        units_in_stock: int,
+        category_id: str,
+        _id: str = None,
+    ):
+        """
+        Ürün modelinin constructor'ı.
+
+        Args:
+            name (str): Ürün adı.
+            price (float): Ürün fiyatı.
+            units_in_stock (int): Stoktaki ürün adedi.
+            category_id (str): Bağlı olduğu kategori ID'si.
+            _id (str, optional): MongoDB ObjectId. Varsayılan olarak None.
+        """
+        self._id = (
+            ObjectId(_id) if _id else None
+        )  # Eğer _id varsa ObjectId olarak çevir
+        self.name = (
+            name.strip().title()
+        )  # İlk harfi büyük yap, gereksiz boşlukları kaldır
+        self.price = round(float(price), 2)  # Fiyatı yuvarla (örneğin 10.5999 → 10.6)
+        self.units_in_stock = int(units_in_stock)  # Stok adedini integer yap
+        self.category_id = (
+            ObjectId(category_id) if category_id else None
+        )  # Kategori ID'yi ObjectId olarak kaydet
+
+    def __str__(self):
+        """
+        Nesneyi string olarak döndürür.
+        """
+        return f"Product(Name={self.name}, Price={self.price}, Stock={self.units_in_stock}, CategoryId={self.category_id})"
 
     def to_dict(self):
-        return {
-            "Name": self.Name,
-            "Price": self.Price,
-            "UnitsInStock": self.UnitsInStock,
-            "CategoryId": self.CategoryId,
+        """
+        Ürünü MongoDB'ye eklenebilir bir sözlüğe dönüştürür.
+
+        Returns:
+            dict: Ürün verisini sözlük formatında döndürür.
+        """
+        data = {
+            "name": self.name,
+            "price": self.price,
+            "units_in_stock": self.units_in_stock,
+            "category_id": self.category_id,
         }
-
-
-p = Product("Chai", 10, 100, 1)
-print(p)
-print(p.to_dict())
-# var c = new Category("Beverages","test");
-# Console.WriteLine(c.Name);
-# Console.WriteLine(c.Description);
-# Console.WriteLine($"{c.Name} {c.Description}");
-
-
-# Console.WriteLine(c);  -> namespace + class name
-# Console.WriteLine(c);  -> $"{c.Name} {c.Description}"   -> override ToString() -> $"{c.Name} {c.Description}"
+        if self._id:
+            data["_id"] = self._id  # MongoDB _id alanını ekle
+        return data

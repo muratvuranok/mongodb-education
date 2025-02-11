@@ -10,7 +10,7 @@ class Category:
         self._id = (
             ObjectId(_id) if _id else None
         )  # _id is not null ? ObjectId(_id) : None
-        self.Name = name.title()
+        self.Name = name.title()  # İlk harfi büyük yap, gereksiz boşlukları kaldır
         self.Description = description.title() 
         
     def __str__(self):
