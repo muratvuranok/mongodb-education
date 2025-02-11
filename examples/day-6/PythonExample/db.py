@@ -24,5 +24,5 @@ db = client[DATABASE_NAME]
 
 # category_colleciton = db["Categories"]
 # product_collection = db["Products"]
-category_colleciton = db[os.getenv("COLLECTION_CATEGORY")]
+category_collection = db[os.getenv("COLLECTION_CATEGORY")]
 product_collection = db[os.getenv("COLLECTION_PRODUCT")]
