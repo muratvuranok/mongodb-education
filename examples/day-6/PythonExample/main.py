@@ -43,7 +43,7 @@ def main():
                 print("ID boş olamaz")
                 continue
             category = CategoryService.get_category_by_products(id)
-            # print(category) 
+            # print(category)
             print(
                 json.dumps(
                     {

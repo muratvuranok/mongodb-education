@@ -1,6 +1,8 @@
 from db import category_collection, product_collection
 from models.category import Category
 from bson.objectid import ObjectId
+import json
+from bson import json_util
 
 # from tabulate import tabulate
 
@@ -74,12 +76,98 @@ class CategoryService:
         """
         Kategori ve ürünleri listeler
         """
+
+        try:
+            category_id: ObjectId = ObjectId(id)
+            pipeline = [
+                {
+                    "$match": {"_id": category_id},
+                },
+                {
+                    "$lookup": {
+                        "from": "Products",
+                        "let": {
+                            "category_id": {"$toString": "$_id"}
+                        },  # kategori sınıfı içerisinde yer alan _id değişkenini string'e çevirip category_id değişkenine atıryoruz.
+                        "pipeline": [
+                            {
+                                "$match": {
+                                    "$expr": {
+                                        "$eq": ["$CategoryId", "$$category_id"]
+                                    }  # products içerisinde yer alan CategoryId değeri ile category_id değerini karşılaştırıyoruz.
+                                },
+                            },
+                            {
+                                "$project": {
+                                    "_id": 0,
+                                }
+                            },
+                        ],
+                        "as": "Products",
+                    }
+                },
+            ]
+            category_with_products = list(category_collection.aggregate(pipeline))
+            print(
+                json.dumps(
+                    {"category": category_with_products},
+                    indent=4,
+                    default=json_util.default,
+                )
+            )
+        except:
+            pass
+
+        # categoryId ObjectId ise çalışır
+        # category_with_products = list(
+        #     category_collection.aggregate(
+        #         [
+        #             {
+        #                 "$match": {"_id": ObjectId(id)},
+        #             },  # Kategoriyi seçiyoruz.
+        #             {
+        #                 "$lookup": {
+        #                     "from": "products",
+        #                     "localField": "_id",
+        #                     "foreignField": "CategoryId",
+        #                     "as": "Products",
+        #                 }
+        #             },
+        #             {
+        #                 "$project": {
+        #                     "_id": 0,
+        #                     "Name": 1,
+        #                     "Description": 1,
+        #                     "Products": 1,
+        #                 }
+        #             },
+        #         ]
+        #     )
+        # )
+
+        # pipeline = [
+        #             { "$match": {"_id": ObjectId(id)}, },
+        #             {
+        #                 "$lookup": {
+        #                     "from": "products",
+        #                     "let": {"CategoryId": {"$toString": "$_id"}},
+        #                     "pipeline":[
+        #                         { "$match" : {"$expr": {"$eq":["$CategoryId" , "$$category_id"]}},},
+        #                         { "$project": { "_id":0 }  },
+        #                     ]
+        #                     "localField": "_id",
+        #                     "foreignField": "CategoryId",
+        #                     "as": "Products"
+        #                 }
+        #             }
+        #         ]
+
         category = category_collection.find_one({"_id": ObjectId(id)})
         if not category:
             return None
 
         # products = list(product_collection.find({"CategoryId": ObjectId(id)}))
-        products = list(product_collection.find({"CategoryId": id}))  
+        products = list(product_collection.find({"CategoryId": id}))
         return {
             "category": category,
             "products": products,
