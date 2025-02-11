@@ -11,8 +11,8 @@ class Category:
             ObjectId(_id) if _id else None
         )  # _id is not null ? ObjectId(_id) : None
         self.Name = name.title()
-        self.Description = description.title()
-
+        self.Description = description.title() 
+        
     def __str__(self):
         return f"{self.Name} {self.Description}"
 

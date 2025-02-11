@@ -2,6 +2,8 @@ from db import category_collection, product_collection
 from models.category import Category
 from bson.objectid import ObjectId
 
+# from tabulate import tabulate
+
 
 class CategoryService:
     """
@@ -57,6 +59,17 @@ class CategoryService:
         return list(category_collection.find({}, {"_id": 0}))
 
     @staticmethod
+    def get_categories_to_table():
+        """
+        Tüm kategorileri getirir. Tablo şeklinde gösterir.
+        """
+        categories = list(category_collection.find({}, {"_id": 0}))
+        headers = categories[0].keys()  # İlk kategorinin key'lerini alır
+        rows = [list(category.values()) for category in categories]
+
+        # print(tabulate(rows, headers=headers, tablefmt="pretty"))
+
+    @staticmethod
     def get_category_by_products(id):
         """
         Kategori ve ürünleri listeler
@@ -65,12 +78,12 @@ class CategoryService:
         if not category:
             return None
 
-        products = list(
-            product_collection.find(
-                {"CategoryId": ObjectId(category["_id"])}, {"_id": 0}
-            )
-        )
-        return {"category": category, "products": products}
+        # products = list(product_collection.find({"CategoryId": ObjectId(id)}))
+        products = list(product_collection.find({"CategoryId": id}))  
+        return {
+            "category": category,
+            "products": products,
+        }
 
     @staticmethod
     def get_category_by_id(id):
@@ -79,6 +92,7 @@ class CategoryService:
         """
         try:
             category = category_collection.find_one({"_id": ObjectId(id)}, {"_id": 0})
+            # kategoriye ait ürünler listelenir, kategori ile birlikte bir model olarak geriye döndrilebilir.
             return category
         except:
             return None
