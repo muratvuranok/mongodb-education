@@ -10,6 +10,22 @@ from services.category import (
 )
 from models.category import CategoryModel
 from schemas.category import CategoryRequest
+from enum import Enum
+from typing import Any, Dict
+from pydantic import BaseModel
+
+
+class HeadersEnum(str, Enum):
+    SUCCESS = ("X-Success",)
+    ERROR = ("X-Error",)
+    WARNING = "X-Warning"
+
+
+class GenericResponse:
+    status_code: int
+    detail: Dict[str, Any]  # string, dynamic
+    headers: Dict[Any, str] #{}
+
 
 router = APIRouter(
     prefix="/categories",
@@ -18,9 +34,20 @@ router = APIRouter(
 
 
 # **GET - Get all categories**
-@router.get("/", summary="Get all categories", status_code=status.HTTP_201_CREATED)
+@router.get("/", summary="Get all categories", status_code=status.HTTP_201_CREATED,)
 def read_categories(db: Session = Depends(get_db)):
     categories = get_categories(db)
+    # return GenericResponse(
+    #     status_code=status.HTTP_200_OK,
+    #     detail={
+    #         "data": categories,
+    #         "message": "Categories retrieved successfully",
+    #     },
+    #     headers={
+    #         HeadersEnum.SUCCESS: "Successfully retrieved categories",
+    #     },
+    # )
+
     return {
         "status_code": status.HTTP_200_OK,
         "detail": {
