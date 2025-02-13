@@ -15,6 +15,4 @@ class Category(BaseModel):
         max_length=255,
         description="Kategori Açıklaması",
         examples=["Elektronik ürünler"],
-    )
-    
-    # existing_categories = ClassVar
+    ) 
