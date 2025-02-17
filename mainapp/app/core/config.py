@@ -10,6 +10,8 @@ class Settings:
     DATABASE_URL: str = os.getenv("DATABASE_URL")
     HOST: str = os.getenv("HOST")
     PORT: int = os.getenv("PORT")
+    REDIS_HOST: str = os.getenv("REDIS_HOST")
+    REDIS_PORT: int = os.getenv("REDIS_PORT")
 
 
 settings = Settings()

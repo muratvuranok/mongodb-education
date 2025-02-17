@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from core.auth import verify_access_token
 from core.database import get_db
 from services.category import (
     create_category,
@@ -10,63 +11,68 @@ from services.category import (
 )
 from models.category import CategoryModel
 from schemas.category import CategoryRequest
-from enum import Enum
-from typing import Any, Dict
-from pydantic import BaseModel
+
+# **Router tanımlama**
+router = APIRouter(prefix="/api/v1/categories", tags=["Category"])
 
 
-class HeadersEnum(str, Enum):
-    SUCCESS = ("X-Success",)
-    ERROR = ("X-Error",)
-    WARNING = "X-Warning"
+# **GET - Tüm Kategorileri Getir**
+@router.get("/", summary="Get All Categories")
+def read_categories(
+    db: Session = Depends(get_db), token: str = Depends(verify_access_token)
+):
+    if not token:
+        raise HTTPException(status_code=401, detail="Invalid token")
 
-
-class GenericResponse:
-    status_code: int
-    detail: Dict[str, Any]  # string, dynamic
-    headers: Dict[Any, str] #{}
-
-
-router = APIRouter(
-    prefix="/categories",
-    tags=["Category"],
-)
-
-
-# **GET - Get all categories**
-@router.get("/", summary="Get all categories", status_code=status.HTTP_201_CREATED,)
-def read_categories(db: Session = Depends(get_db)):
     categories = get_categories(db)
-    # return GenericResponse(
-    #     status_code=status.HTTP_200_OK,
-    #     detail={
-    #         "data": categories,
-    #         "message": "Categories retrieved successfully",
-    #     },
-    #     headers={
-    #         HeadersEnum.SUCCESS: "Successfully retrieved categories",
-    #     },
-    # )
-
     return {
-        "status_code": status.HTTP_200_OK,
-        "detail": {
-            "data": categories,
-            "message": "Categories retrieved successfully",
-        },
-        "headers": {"X-Success": "Successfully retrieved categories"},
+        "data": categories,
+        "message": "Categories retrieved successfully",
+        "status": 200,
     }
 
 
-# **GET - Get Category**
+# **GET - Belirli Bir Kategoriyi Getir**
+@router.get("/{category_id}", summary="Get a Category by ID")
+def read_category(category_id: int, db: Session = Depends(get_db)):
+    category = get_category(db, category_id)
+    if not category:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Category not found"
+        )
+    return {
+        "data": category,
+        "message": "Category retrieved successfully",
+        "status": 200,
+    }
 
 
-# **POST - Create a new Category**
-@router.post(
-    "/",
-    summary="Create a new category",
-    status_code=status.HTTP_201_CREATED,
-)
-def create_new_category(request: CategoryRequest, db: Session = Depends(get_db)):
-    category = create_category(db, request)
-    return category  # generic bir response modeli ekliycez :)
+# **POST - Yeni Kategori Ekle**
+@router.post("/", summary="Create a new Category")
+def create_new_category(category_data: CategoryRequest, db: Session = Depends(get_db)):
+    category = create_category(db, category_data)
+    return {"data": category, "message": "Category added successfully", "status": 201}
+
+
+# **PUT - Kategoriyi Güncelle**
+@router.put("/{category_id}", summary="Update a Category")
+def update_existing_category(
+    category_id: int, category_data: CategoryRequest, db: Session = Depends(get_db)
+):
+    category = update_category(db, category_id, category_data)
+    if not category:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Category not found"
+        )
+    return {"data": category, "message": "Category updated successfully", "status": 200}
+
+
+# **DELETE - Kategoriyi Sil**
+@router.delete("/{category_id}", summary="Delete a Category")
+def delete_existing_category(category_id: int, db: Session = Depends(get_db)):
+    category = delete_category(db, category_id)
+    if not category:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Category not found"
+        )
+    return {"message": "Category deleted successfully", "status": 200}

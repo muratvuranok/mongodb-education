@@ -1,0 +1,1 @@
+pip install pyjwt passlib[bcrypt] python-multipart python-jose[cryptography] pydantic[email]

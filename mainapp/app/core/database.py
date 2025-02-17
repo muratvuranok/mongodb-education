@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from core.confg import settings
+from core.config import settings
 
 
 # **Sqlite bağlantısı oluşturma**
