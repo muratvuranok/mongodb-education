@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategori Yönetimi</title>
+</head>
+
+<body>
+    <h2>Gerçek Zamanlı Kategori Listesi</h2>
+    <ul id="category-list"></ul>
+
+    <script>
+        const API_URL = "http://127.0.0.1:8000/api/v1/categories/";
+        const _token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhaG1ldCIsImV4cCI6MTczOTg2OTc1Nn0.S4dNGg7hcvzAMtZ4ho722201ECK1IK6A0VWafYX-L4Q`;
+        const TOKEN = `Bearer ${_token}`;
+
+        async function fetchCategories() {
+            try {
+                let response = await fetch(API_URL, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": TOKEN,
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+
+                let data = await response.json();
+                let list = document.getElementById("category-list");
+                list.innerHTML = "";
+
+                data.data.forEach(category => {
+                    let li = document.createElement("li");
+                    li.textContent = category.name;
+                    list.appendChild(li);
+                });
+
+            } catch (error) {
+                console.error("Kategoriler yüklenirken hata oluştu:", error);
+            }
+        }
+
+        let ws = new WebSocket("ws://127.0.0.1:8000/ws/categories");
+
+        ws.onopen = function () {
+            console.log("WebSocket bağlantısı açıldı");
+            fetchCategories();
+        };
+
+        ws.onmessage = function (event) {
+            console.log("Sunucudan Gelen Bildirim: ", event.data);
+            let li = document.createElement("li");
+            li.textContent = event.data;
+            document.getElementById("category-list").appendChild(li);
+        };
+
+        ws.onclose = function () {
+            console.log("Bağlantı kapatıldı");
+        };
+    </script>
+</body>
+
+</html>

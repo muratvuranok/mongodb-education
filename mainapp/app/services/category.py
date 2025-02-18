@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from models.category import CategoryModel
 from schemas.category import CategoryRequest
+from core.websocket import broadcast_message
 
 
 # **Create a new category**
@@ -37,6 +38,7 @@ def create_category(db: Session, request: CategoryRequest):
     db.refresh(
         category
     )  # Refresh the category object ( güncellenmiş nesneyi teslim eder)
+    broadcast_message(f"Yeni Kategori Eklendi: {category.name}")
     return category
 
 
@@ -66,13 +68,14 @@ def update_category(
     Update current category in the database.
     """
     category = _get_category_by_id(db, category_id)
-
+    old_category_name = category.name
     if not category:
         return None
 
     category.name = request.name
     category.description = request.description
     db.commit()
+    # broadcast_message(f"{old_category_name} Kategori Düzenlendi: {category.name}")
     return category
 
 
@@ -85,6 +88,7 @@ def delete_category(db: Session, category_id: int):
 
     db.delete(category)
     db.commit()
+    broadcast_message(f"Kategori Silindi: {category.name}")
     return category
 
 

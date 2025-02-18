@@ -1,6 +1,6 @@
 from .category import (
-    create_category,
     get_categories,
+    create_category,
     get_category,
     update_category,
     delete_category,

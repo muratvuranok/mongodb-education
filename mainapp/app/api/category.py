@@ -19,10 +19,12 @@ router = APIRouter(prefix="/api/v1/categories", tags=["Category"])
 # **GET - Tüm Kategorileri Getir**
 @router.get("/", summary="Get All Categories")
 def read_categories(
-    db: Session = Depends(get_db), token: str = Depends(verify_access_token)
+    db: Session = Depends(get_db),
+    token: str = Depends(verify_access_token),
 ):
     if not token:
         raise HTTPException(status_code=401, detail="Invalid token")
+        
 
     categories = get_categories(db)
     return {
